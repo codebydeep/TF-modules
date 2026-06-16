@@ -1,0 +1,15 @@
+**/.terraform/
+*.tfstate*
+*.tfvars
+*.tfvars.json
+*.tfplan
+crash.log
+override.tf*
+.terraformrc
+terraform.rc
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+.env*
+!.terraform.lock.hcl
