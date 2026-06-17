@@ -29,6 +29,5 @@ output "security_group_id" {
 }
 
 output "key_name" {
-  description = "Name of the EC2 key pair"
   value       = aws_key_pair.keys.key_name
 }
