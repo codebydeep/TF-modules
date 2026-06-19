@@ -33,6 +33,12 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ env.AWS_REGION }}
 
+      - name: Create terraform.tfvars
+        run: |
+          cat > terraform.tfvars <<EOF
+          ${{ secrets.TFVARS }}
+          EOF
+
       - name: Terraform Init
         run: terraform init
 
@@ -46,5 +52,4 @@ jobs:
         run: terraform plan
 
       - name: Terraform Apply
-        # if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         run: terraform apply -auto-approve
