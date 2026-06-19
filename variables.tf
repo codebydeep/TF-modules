@@ -20,7 +20,7 @@ variable "ec2_ami_id" {
 
 variable "aws_root_storage_size" {
   description = "Root EBS volume size (GB) for EC2 instances."
-  type        = string
+  type        = number
 }
 
 variable "volume_type" {
