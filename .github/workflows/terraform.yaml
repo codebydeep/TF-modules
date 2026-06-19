@@ -33,11 +33,16 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ env.AWS_REGION }}
 
-      - name: Create terraform.tfvars
+      - name: Debug Repository
         run: |
-          cat > terraform.tfvars <<EOF
-          ${{ secrets.TFVARS }}
-          EOF
+          echo "Current Directory:"
+          pwd
+          echo ""
+          echo "Repository Files:"
+          ls -la
+          echo ""
+          echo "Terraform Files:"
+          find . -name "*.tf" -o -name "*.tfvars"
 
       - name: Terraform Init
         run: terraform init
@@ -49,7 +54,8 @@ jobs:
         run: terraform validate
 
       - name: Terraform Plan
-        run: terraform plan
+        run: terraform plan -input=false -var-file=terraform.tfvars
 
       - name: Terraform Apply
-        run: terraform apply -auto-approve
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        run: terraform apply -auto-approve -input=false -var-file=terraform.tfvars
